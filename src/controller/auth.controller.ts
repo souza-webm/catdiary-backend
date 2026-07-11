@@ -30,12 +30,14 @@ export class AuthController
 
     async login(req: Request,res: Response)
     {
+        console.log(req.body);
         try {
             const {email,senha} = req.body;
 
             const resposta = await authService.login(email,senha)
 
-            res.cookie("token", resposta.token,{
+            res.cookie("token", resposta.token,
+                {
                 httpOnly: true,
                 secure: false,
                 sameSite: 'lax'

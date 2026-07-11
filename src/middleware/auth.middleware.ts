@@ -9,7 +9,7 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction)
 
     if(!token)
     {
-        res.json(400).json({
+        return res.json(400).json({
             message: "Token não encontrado"
         })
     }
@@ -21,8 +21,9 @@ export function authMiddleware(req: Request, res: Response, next: NextFunction)
         res.locals.user = payload;
 
         next()
+
     }catch(error){
-        res.json(400).json({
+        return res.status(401).json({
             message: "Token inválido"
         })
     }
